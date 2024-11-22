@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Browser</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://example.com)">
+    <button id="goButton">Go</button>
+    <iframe id="webView" src="" frameborder="0"></iframe>
+  </div>
+  <div id="result">
+    <h3>検索結果</h3>
+    <div id="resultContent">ここに検索結果が表示されます。</div>
+  </div>
+  <div id="camera">
+    <video id="video" autoplay></video>
+    <button id="captureButton">撮影</button>
+    <canvas id="canvas"></canvas>
+  </div>  
+  <script src="script.js"></script>
+</body>
+</html>
