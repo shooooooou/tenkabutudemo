@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Browser</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js/dist/tesseract.min.js"></script>
+  <title>食品添加物情報アプリ</title>
+  <style>
+    #video, #canvas {
+      width: 100%;
+      max-width: 400px;
+      margin: 10px 0;
+    }
+    #canvas {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div id="app">
-    <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://example.com)">
-    <button id="goButton">Go</button>
-    <iframe id="webView" src="" frameborder="0"></iframe>
-  </div>
-  <div id="result">
-    <h3>検索結果</h3>
-    <div id="resultContent">ここに検索結果が表示されます。</div>
-  </div>
+  <h1>食品添加物情報アプリ</h1>
   <div id="camera">
-    <video id="video" autoplay></video>
+    <video id="video" autoplay playsinline></video>
     <button id="captureButton">撮影</button>
     <canvas id="canvas"></canvas>
-  </div>  
+  </div>
+  <div id="result">
+    <h2>OCR結果</h2>
+    <p id="ocrResult"></p>
+    <h2>添加物情報</h2>
+    <div id="additiveInfo"></div>
+  </div>
+  <script src="https://unpkg.com/tesseract.js@v3.0.3/dist/tesseract.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
