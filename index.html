@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>添加物検索ブラウザアプリ</title>
+    <!-- モバイル表示に対応するためのビューポート設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSSファイルの読み込み -->
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- 検索ページ -->
-    <div id="search-page">
+    <div id="search-page" class="container">
         <header>
             <h1>添加物検索</h1>
         </header>
         <main>
             <form id="search-form">
-                <label for="additive-name">添加物名を入力してください:</label><br>
-                <input type="text" id="additive-name" name="additive-name" placeholder="例：保存料、着色料など"><br>
+                <div class="form-group">
+                    <label for="additive-name">添加物名を入力してください:</label>
+                    <input type="text" id="additive-name" name="additive-name" placeholder="例：保存料、着色料など">
+                </div>
                 <button type="submit">検索</button>
             </form>
         </main>
     </div>
 
     <!-- 結果ページ -->
-    <div id="results-page" style="display: none;">
+    <div id="results-page" class="container" style="display: none;">
         <header>
             <h1>検索結果</h1>
         </header>
@@ -36,5 +40,8 @@
             <button id="home-button">ホームに戻る</button>
         </main>
     </div>
+
+    <!-- JavaScriptファイルの読み込み -->
+    <script src="script.js" defer></script>
 </body>
 </html>
