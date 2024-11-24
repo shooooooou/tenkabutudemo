@@ -3,8 +3,8 @@
 // 添加物データを格納する配列を初期化
 let additivesData = [];
 
-// additives.jsonファイルからデータを取得
-fetch('additives.json')
+// additives.jsonファイルからデータを取得（GitHub Pagesの外部URLから取得）
+fetch('https://shooooooou.github.io/tenkabutudemo/additives.json')
     .then(response => response.json())
     .then(data => {
         additivesData = data;
@@ -36,9 +36,9 @@ function displayResults(additiveName) {
 
     if (result) {
         document.getElementById('additive-title').textContent = `添加物名：${result.name}`;
-        document.getElementById('additive-alias').textContent = result.alias || 'なし';
-        document.getElementById('additive-benefits').textContent = result.benefits || '情報なし';
-        document.getElementById('additive-demerits').textContent = result.demerits || '情報なし';
+        document.getElementById('additive-alias').textContent = `別名：${result.alias || 'なし'}`;
+        document.getElementById('additive-benefits').textContent = `利点：${result.benefits || '情報なし'}`;
+        document.getElementById('additive-demerits').textContent = `欠点：${result.demerits || '情報なし'}`;
     } else {
         document.getElementById('additive-title').textContent = '該当する添加物が見つかりませんでした。';
         document.getElementById('additive-alias').textContent = '';
