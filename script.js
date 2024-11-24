@@ -1,29 +1,31 @@
 // script.js
 
-// 添加物データを格納する配列を初期化
-let additivesData = [];
-
-// ページのコンテンツがロードされたら実行
 document.addEventListener("DOMContentLoaded", function () {
     // ロゴのアニメーション処理
     const logo = document.querySelector(".logo img");
     if (logo) {
-        let position = 0;
-        let direction = 1;
+        let position = -100; // 初期位置（左端）
+        let direction = 1; // 方向（1：右、-1：左）
+        let speed = 0.5; // アニメーション速度
 
         function animateLogo() {
-            position += direction;
+            // 位置を更新
+            position += speed * direction;
 
-            // 中央で透明度を最大に、それ以外では最小にする
-            if (position >= 40 && position <= 60) {
-                logo.style.opacity = 1;
-            } else {
-                logo.style.opacity = 0;
+            // 左端から右端まで移動
+            if (position > 100) {
+                direction = -1; // 右端に到達したら左方向に移動
+            } else if (position < -100) {
+                direction = 1; // 左端に到達したら右方向に移動
             }
 
-            // 左から右へ移動する
-            if (position > 100) {
-                position = 0; // リセットして再度左端に
+            // 透明度の調整
+            if (position >= -10 && position <= 10) {
+                // 中央付近で透明度を徐々に最大に
+                logo.style.opacity = Math.min(1, (10 - Math.abs(position)) / 10);
+            } else {
+                // 中央から離れると透明度を下げる
+                logo.style.opacity = 0;
             }
 
             // ロゴの位置を更新
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         animateLogo();
     }
 
-    // additives.jsonファイルからデータを取得
+    // 以下は添加物の検索に関する処理
     fetch('additives.json')
         .then(response => {
             if (!response.ok) {
@@ -70,14 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const homeButton = document.getElementById('home-button');
     if (homeButton) {
         homeButton.addEventListener('click', function () {
-            // 検索入力をクリア
             document.getElementById('additive-name').value = '';
-
-            // 結果ページを非表示にして検索ページを表示
             document.getElementById('results-page').style.display = 'none';
             document.getElementById('search-page').style.display = 'block';
-
-            // 検索ページをトップにスクロール
             window.scrollTo(0, 0);
         });
     }
@@ -86,8 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // 検索結果を表示する関数
 function displayResults(additiveName) {
     const inputName = additiveName.toLowerCase();
-
-    // 部分一致で添加物を検索
     const result = additivesData.find(item =>
         item.name.toLowerCase().includes(inputName) ||
         (item.alias && item.alias.toLowerCase().includes(inputName))
@@ -105,11 +100,8 @@ function displayResults(additiveName) {
         document.getElementById('additive-demerits').textContent = '';
     }
 
-    // 検索ページを非表示にして結果ページを表示
     document.getElementById('search-page').style.display = 'none';
     document.getElementById('results-page').style.display = 'block';
-
-    // 結果ページをトップにスクロール
     window.scrollTo(0, 0);
 }
 
