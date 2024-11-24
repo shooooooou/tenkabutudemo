@@ -52,22 +52,27 @@ h1 {
 @keyframes logoMove {
   0% {
     transform: translateX(-100%);
+    width:50%;
     opacity: 0; /* 左端で透明度0% */
   }
   25% {
     transform: translateX(0);
-    opacity: 0.5; /* 中央で透明度100% */
+    width:100%;
+    opacity: 1; /* 中央で透明度100% */
   }
   50% {
     transform: translateX(100%);
-    opacity: 1; /* 右端で透明度0% */
+    width:50%;
+    opacity: 0; /* 右端で透明度0% */
   }
   75% {
     transform: translateX(0);
-    opacity: 0.5; /* 中央で透明度100% */
+     width:100%;
+    opacity: 1; /* 中央で透明度100% */
   }
   100% {
     transform: translateX(-100%);
+    width:50%;
     opacity: 0; /* 左端に戻って透明度0% */
   }
 }
