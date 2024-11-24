@@ -40,7 +40,7 @@ h1 {
 /* ロゴのデザイン */
 .logo {
   margin-bottom: 20px;
-  animation: logoMove 8s infinite ease-in-out; /* アニメーションの追加 */
+  animation: logoMove 4s infinite ease-in-out; /* アニメーションの追加 */
 }
 
 .logo img {
@@ -56,15 +56,15 @@ h1 {
   }
   25% {
     transform: translateX(0);
-    opacity: 1; /* 中央で透明度100% */
+    opacity: 0.5; /* 中央で透明度100% */
   }
   50% {
     transform: translateX(100%);
-    opacity: 0; /* 右端で透明度0% */
+    opacity: 1; /* 右端で透明度0% */
   }
   75% {
     transform: translateX(0);
-    opacity: 1; /* 中央で透明度100% */
+    opacity: 0.5; /* 中央で透明度100% */
   }
   100% {
     transform: translateX(-100%);
