@@ -1,3 +1,5 @@
+// script.js
+
 // 添加物データを格納する配列を初期化
 let additivesData = [];
 
@@ -5,33 +7,35 @@ let additivesData = [];
 document.addEventListener("DOMContentLoaded", function () {
     // ロゴのアニメーション処理
     const logo = document.querySelector(".logo img");
-    let position = 0;
-    let direction = 1;
+    if (logo) {
+        let position = 0;
+        let direction = 1;
 
-    function animateLogo() {
-        position += direction;
+        function animateLogo() {
+            position += direction;
 
-        // 中央で透明度を最大に、それ以外では最小にする
-        if (position >= 40 && position <= 60) {
-            logo.style.opacity = 1;
-        } else {
-            logo.style.opacity = 0;
+            // 中央で透明度を最大に、それ以外では最小にする
+            if (position >= 40 && position <= 60) {
+                logo.style.opacity = 1;
+            } else {
+                logo.style.opacity = 0;
+            }
+
+            // 左から右へ移動する
+            if (position > 100) {
+                position = 0; // リセットして再度左端に
+            }
+
+            // ロゴの位置を更新
+            logo.style.transform = `translateX(${position}vw)`;
+
+            // 次のフレームで再度呼び出し
+            requestAnimationFrame(animateLogo);
         }
 
-        // 左から右へ移動する
-        if (position > 100) {
-            position = 0; // リセットして再度左端に
-        }
-
-        // ロゴの位置を更新
-        logo.style.transform = `translateX(${position}vw)`;
-
-        // 次のフレームで再度呼び出し
-        requestAnimationFrame(animateLogo);
+        // アニメーションを開始
+        animateLogo();
     }
-
-    // アニメーションを開始
-    animateLogo();
 
     // additives.jsonファイルからデータを取得
     fetch('additives.json')
@@ -108,5 +112,4 @@ function displayResults(additiveName) {
     // 結果ページをトップにスクロール
     window.scrollTo(0, 0);
 }
-
 
