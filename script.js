@@ -1,4 +1,4 @@
-/// script.js
+// script.js
 
 // 添加物データを格納する配列を初期化
 let additivesData = [];
@@ -66,3 +66,4 @@ document.getElementById('home-button').addEventListener('click', function() {
     // 検索ページをトップにスクロール
     window.scrollTo(0, 0);
 });
+
