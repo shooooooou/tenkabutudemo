@@ -73,26 +73,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let position = -100; // 初期位置（左端）
     let direction = 1; // アニメーションの方向
+    let animationSpeed = 1; // アニメーションの速度を調整
 
     function animateLogo() {
-        position += direction;
+        // 位置を更新
+        position += direction * animationSpeed;
 
-        if (position >= 0 && position <= 100) {
-            logo.style.opacity = 1;
+        // 透明度の調整（中央付近で最大）
+        if (position >= -10 && position <= 10) {
+            logo.style.opacity = 1; // 中央で透明度100%
         } else {
-            logo.style.opacity = 0;
+            logo.style.opacity = 0; // 他の場所で透明度0%
         }
 
+        // 位置が右端または左端に達したら方向を変更
         if (position > 100) {
-            direction = -1; // 左方向に戻る
+            direction = -1; // 左に移動するように変更
         } else if (position < -100) {
-            direction = 1; // 右方向に進む
+            direction = 1; // 右に移動するように変更
         }
 
+        // ロゴにスタイルを適用
         logo.style.transform = `translateX(${position}%)`;
 
+        // 次のアニメーションフレームをリクエスト
         requestAnimationFrame(animateLogo);
     }
 
+    // アニメーションを開始
     animateLogo();
 });
