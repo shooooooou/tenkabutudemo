@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logo) {
         let position = 0; // 初期位置（中央基準の相対位置）
         let direction = 1; // 方向（1：右、-1：左）
-        let speed = 0.5; // アニメーション速度
+        let speed = 1; // アニメーション速度
 
         function animateLogo() {
             // 位置を更新
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // ロゴの位置を更新
-            logo.style.transform = `translateX(${position}%)`;
+            logo.style.transform = `translateX(${position}px)`; // 中央基準で左右に動く
 
             // 次のフレームで再度呼び出し
             requestAnimationFrame(animateLogo);
