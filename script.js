@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ロゴのアニメーション処理
     const logo = document.querySelector(".logo img");
     if (logo) {
-        let position = -100; // 初期位置（左端）
+        let position = 0; // 初期位置（中央基準の相対位置）
         let direction = 1; // 方向（1：右、-1：左）
         let speed = 0.5; // アニメーション速度
 
@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
             position += speed * direction;
 
             // 左端から右端まで移動
-            if (position > 100) {
+            if (position > 50) {
                 direction = -1; // 右端に到達したら左方向に移動
-            } else if (position < -100) {
+            } else if (position < -50) {
                 direction = 1; // 左端に到達したら右方向に移動
             }
 
             // 透明度の調整
-            if (position >= -10 && position <= 10) {
+            if (Math.abs(position) <= 10) {
                 // 中央付近で透明度を徐々に最大に
                 logo.style.opacity = Math.min(1, (10 - Math.abs(position)) / 10);
             } else {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // ロゴの位置を更新
-            logo.style.transform = `translateX(${position}vw)`;
+            logo.style.transform = `translateX(${position}%)`;
 
             // 次のフレームで再度呼び出し
             requestAnimationFrame(animateLogo);
@@ -104,4 +104,3 @@ function displayResults(additiveName) {
     document.getElementById('results-page').style.display = 'block';
     window.scrollTo(0, 0);
 }
-
