@@ -1,5 +1,37 @@
 // script.js
 
+document.addEventListener("DOMContentLoaded", function () {
+    // ロゴのアニメーション処理
+    const logo = document.querySelector(".logo img");
+    let position = 0;
+    let direction = 1;
+
+    function animateLogo() {
+        position += direction;
+
+        // 中央で透明度を最大に、それ以外では最小にする
+        if (position >= 40 && position <= 60) {
+            logo.style.opacity = 1;
+        } else {
+            logo.style.opacity = 0;
+        }
+
+        // 左から右へ移動する
+        if (position > 100) {
+            position = 0; // リセットして再度左端に
+        }
+
+        // ロゴの位置を更新
+        logo.style.transform = `translateX(${position}vw)`;
+
+        // 次のフレームで再度呼び出し
+        requestAnimationFrame(animateLogo);
+    }
+
+    // アニメーションを開始
+    animateLogo();
+});
+
 // 添加物データを格納する配列を初期化
 let additivesData = [];
 
@@ -14,7 +46,7 @@ fetch('additives.json')
     });
 
 // 検索フォームの送信処理
-document.getElementById('search-form').addEventListener('submit', function(event) {
+document.getElementById('search-form').addEventListener('submit', function (event) {
     event.preventDefault();
     const additiveName = document.getElementById('additive-name').value.trim();
     if (additiveName) {
@@ -55,7 +87,7 @@ function displayResults(additiveName) {
 }
 
 // ホームボタンのクリック処理
-document.getElementById('home-button').addEventListener('click', function() {
+document.getElementById('home-button').addEventListener('click', function () {
     // 検索入力をクリア
     document.getElementById('additive-name').value = '';
 
@@ -67,39 +99,3 @@ document.getElementById('home-button').addEventListener('click', function() {
     window.scrollTo(0, 0);
 });
 
-// ロゴのアニメーション処理
-document.addEventListener("DOMContentLoaded", function() {
-    const logo = document.querySelector(".logo img");
-
-    let position = -100; // 初期位置（左端）
-    let direction = 1; // アニメーションの方向
-    let animationSpeed = 1; // アニメーションの速度を調整
-
-    function animateLogo() {
-        // 位置を更新
-        position += direction * animationSpeed;
-
-        // 透明度の調整（中央付近で最大）
-        if (position >= -10 && position <= 10) {
-            logo.style.opacity = 1; // 中央で透明度100%
-        } else {
-            logo.style.opacity = 0; // 他の場所で透明度0%
-        }
-
-        // 位置が右端または左端に達したら方向を変更
-        if (position > 100) {
-            direction = -1; // 左に移動するように変更
-        } else if (position < -100) {
-            direction = 1; // 右に移動するように変更
-        }
-
-        // ロゴにスタイルを適用
-        logo.style.transform = `translateX(${position}%)`;
-
-        // 次のアニメーションフレームをリクエスト
-        requestAnimationFrame(animateLogo);
-    }
-
-    // アニメーションを開始
-    animateLogo();
-});
