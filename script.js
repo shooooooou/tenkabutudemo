@@ -1,45 +1,9 @@
 // script.js
 
 document.addEventListener("DOMContentLoaded", function () {
-    // ロゴのアニメーション処理
-    const logo = document.querySelector(".logo img");
-    if (logo) {
-        let position = 0; // 初期位置（中央基準の相対位置）
-        let direction = 1; // 方向（1：右、-1：左）
-        let speed = 1; // アニメーション速度
+    // ページのコンテンツがロードされたら実行
 
-        function animateLogo() {
-            // 位置を更新
-            position += speed * direction;
-
-            // 左端から右端まで移動
-            if (position > 50) {
-                direction = -1; // 右端に到達したら左方向に移動
-            } else if (position < -50) {
-                direction = 1; // 左端に到達したら右方向に移動
-            }
-
-            // 透明度の調整
-            if (Math.abs(position) <= 10) {
-                // 中央付近で透明度を徐々に最大に
-                logo.style.opacity = Math.min(1, (10 - Math.abs(position)) / 10);
-            } else {
-                // 中央から離れると透明度を下げる
-                logo.style.opacity = 0;
-            }
-
-            // ロゴの位置を更新
-            logo.style.transform = `translateX(${position}px)`; // 中央基準で左右に動く
-
-            // 次のフレームで再度呼び出し
-            requestAnimationFrame(animateLogo);
-        }
-
-        // アニメーションを開始
-        animateLogo();
-    }
-
-    // 以下は添加物の検索に関する処理
+    // additives.jsonファイルからデータを取得
     fetch('additives.json')
         .then(response => {
             if (!response.ok) {
