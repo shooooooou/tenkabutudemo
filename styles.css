@@ -11,6 +11,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden; /* スクロールの発生を防ぐ */
 }
 
 /* コンテナのスタイル */
@@ -29,47 +30,26 @@ header {
 }
 
 h1 {
-  font-size: 1.8em; /* 少し小さくする */
+  font-size: 1.8em;
   font-weight: bold;
   margin: 20px 0;
   color: #333;
-  display: inline-block; /* アンダーライン用に幅を設定するためにインラインブロックに */
-  border-bottom: 1px solid #333; /* 細いアンダーラインを追加 */
+  display: inline-block;
+  border-bottom: 1px solid #333;
 }
 
 /* ロゴのデザイン */
 .logo {
   margin-bottom: 20px;
-  animation: logoMove 8s infinite ease-in-out; /* アニメーションの追加 */
+  position: relative; /* 親要素内で相対的に配置 */
 }
 
 .logo img {
   width: 60px;
   height: auto;
-}
-
-/* ロゴアニメーションの定義 */
-@keyframes logoMove {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0; /* 左端で透明度0% */
-  }
-  25% {
-    transform: translateX(0);
-    opacity: 1; /* 中央で透明度100% */
-  }
-  50% {
-    transform: translateX(100%);
-    opacity: 0; /* 右端で透明度0% */
-  }
-  75% {
-    transform: translateX(0);
-    opacity: 1; /* 中央で透明度100% */
-  }
-  100% {
-    transform: translateX(-100%);
-    opacity: 0; /* 左端に戻って透明度0% */
-  }
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* 検索フォームのスタイル */
