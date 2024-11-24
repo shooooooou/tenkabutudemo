@@ -49,6 +49,7 @@ h1 {
   height: auto;
   position: absolute;
   left: 50%;
+  top: 0;
   transform: translateX(-50%);
 }
 
@@ -118,3 +119,4 @@ h1 {
     padding: 15px 30px;
   }
 }
+
