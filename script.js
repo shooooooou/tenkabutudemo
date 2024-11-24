@@ -1,26 +1,81 @@
-// script.js
-
 // 添加物データを格納する配列を初期化
 let additivesData = [];
 
-// additives.jsonファイルからデータを取得
-fetch('additives.json')
-    .then(response => response.json())
-    .then(data => {
-        additivesData = data;
-    })
-    .catch(error => {
-        console.error('添加物データの取得エラー:', error);
-    });
+// ページのコンテンツがロードされたら実行
+document.addEventListener("DOMContentLoaded", function () {
+    // ロゴのアニメーション処理
+    const logo = document.querySelector(".logo img");
+    let position = 0;
+    let direction = 1;
 
-// 検索フォームの送信処理
-document.getElementById('search-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const additiveName = document.getElementById('additive-name').value.trim();
-    if (additiveName) {
-        displayResults(additiveName);
-    } else {
-        alert('添加物名を入力してください。');
+    function animateLogo() {
+        position += direction;
+
+        // 中央で透明度を最大に、それ以外では最小にする
+        if (position >= 40 && position <= 60) {
+            logo.style.opacity = 1;
+        } else {
+            logo.style.opacity = 0;
+        }
+
+        // 左から右へ移動する
+        if (position > 100) {
+            position = 0; // リセットして再度左端に
+        }
+
+        // ロゴの位置を更新
+        logo.style.transform = `translateX(${position}vw)`;
+
+        // 次のフレームで再度呼び出し
+        requestAnimationFrame(animateLogo);
+    }
+
+    // アニメーションを開始
+    animateLogo();
+
+    // additives.jsonファイルからデータを取得
+    fetch('additives.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('JSONファイルの読み込みに失敗しました');
+            }
+            return response.json();
+        })
+        .then(data => {
+            additivesData = data;
+        })
+        .catch(error => {
+            console.error('添加物データの取得エラー:', error);
+        });
+
+    // 検索フォームの送信処理
+    const searchForm = document.getElementById('search-form');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const additiveName = document.getElementById('additive-name').value.trim();
+            if (additiveName) {
+                displayResults(additiveName);
+            } else {
+                alert('添加物名を入力してください。');
+            }
+        });
+    }
+
+    // ホームボタンのクリック処理
+    const homeButton = document.getElementById('home-button');
+    if (homeButton) {
+        homeButton.addEventListener('click', function () {
+            // 検索入力をクリア
+            document.getElementById('additive-name').value = '';
+
+            // 結果ページを非表示にして検索ページを表示
+            document.getElementById('results-page').style.display = 'none';
+            document.getElementById('search-page').style.display = 'block';
+
+            // 検索ページをトップにスクロール
+            window.scrollTo(0, 0);
+        });
     }
 });
 
@@ -53,18 +108,5 @@ function displayResults(additiveName) {
     // 結果ページをトップにスクロール
     window.scrollTo(0, 0);
 }
-
-// ホームボタンのクリック処理
-document.getElementById('home-button').addEventListener('click', function() {
-    // 検索入力をクリア
-    document.getElementById('additive-name').value = '';
-
-    // 結果ページを非表示にして検索ページを表示
-    document.getElementById('results-page').style.display = 'none';
-    document.getElementById('search-page').style.display = 'block';
-
-    // 検索ページをトップにスクロール
-    window.scrollTo(0, 0);
-});
 
 
