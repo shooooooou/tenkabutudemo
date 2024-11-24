@@ -1,52 +1,34 @@
 // script.js
 
-document.addEventListener("DOMContentLoaded", function () {
-    // ページのコンテンツがロードされたら実行
+// 添加物データを格納する配列を初期化
+let additivesData = [];
 
-    // additives.jsonファイルからデータを取得
-    fetch('additives.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('JSONファイルの読み込みに失敗しました');
-            }
-            return response.json();
-        })
-        .then(data => {
-            additivesData = data;
-        })
-        .catch(error => {
-            console.error('添加物データの取得エラー:', error);
-        });
+// additives.jsonファイルからデータを取得
+fetch('additives.json')
+    .then(response => response.json())
+    .then(data => {
+        additivesData = data;
+    })
+    .catch(error => {
+        console.error('添加物データの取得エラー:', error);
+    });
 
-    // 検索フォームの送信処理
-    const searchForm = document.getElementById('search-form');
-    if (searchForm) {
-        searchForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const additiveName = document.getElementById('additive-name').value.trim();
-            if (additiveName) {
-                displayResults(additiveName);
-            } else {
-                alert('添加物名を入力してください。');
-            }
-        });
-    }
-
-    // ホームボタンのクリック処理
-    const homeButton = document.getElementById('home-button');
-    if (homeButton) {
-        homeButton.addEventListener('click', function () {
-            document.getElementById('additive-name').value = '';
-            document.getElementById('results-page').style.display = 'none';
-            document.getElementById('search-page').style.display = 'block';
-            window.scrollTo(0, 0);
-        });
+// 検索フォームの送信処理
+document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const additiveName = document.getElementById('additive-name').value.trim();
+    if (additiveName) {
+        displayResults(additiveName);
+    } else {
+        alert('添加物名を入力してください。');
     }
 });
 
 // 検索結果を表示する関数
 function displayResults(additiveName) {
     const inputName = additiveName.toLowerCase();
+
+    // 部分一致で添加物を検索
     const result = additivesData.find(item =>
         item.name.toLowerCase().includes(inputName) ||
         (item.alias && item.alias.toLowerCase().includes(inputName))
@@ -64,7 +46,23 @@ function displayResults(additiveName) {
         document.getElementById('additive-demerits').textContent = '';
     }
 
+    // 検索ページを非表示にして結果ページを表示
     document.getElementById('search-page').style.display = 'none';
     document.getElementById('results-page').style.display = 'block';
+
+    // 結果ページをトップにスクロール
     window.scrollTo(0, 0);
 }
+
+// ホームボタンのクリック処理
+document.getElementById('home-button').addEventListener('click', function() {
+    // 検索入力をクリア
+    document.getElementById('additive-name').value = '';
+
+    // 結果ページを非表示にして検索ページを表示
+    document.getElementById('results-page').style.display = 'none';
+    document.getElementById('search-page').style.display = 'block';
+
+    // 検索ページをトップにスクロール
+    window.scrollTo(0, 0);
+});
