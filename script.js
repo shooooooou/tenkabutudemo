@@ -67,3 +67,32 @@ document.getElementById('home-button').addEventListener('click', function() {
     window.scrollTo(0, 0);
 });
 
+// ロゴのアニメーション処理
+document.addEventListener("DOMContentLoaded", function() {
+    const logo = document.querySelector(".logo img");
+
+    let position = -100; // 初期位置（左端）
+    let direction = 1; // アニメーションの方向
+
+    function animateLogo() {
+        position += direction;
+
+        if (position >= 0 && position <= 100) {
+            logo.style.opacity = 1;
+        } else {
+            logo.style.opacity = 0;
+        }
+
+        if (position > 100) {
+            direction = -1; // 左方向に戻る
+        } else if (position < -100) {
+            direction = 1; // 右方向に進む
+        }
+
+        logo.style.transform = `translateX(${position}%)`;
+
+        requestAnimationFrame(animateLogo);
+    }
+
+    animateLogo();
+});
