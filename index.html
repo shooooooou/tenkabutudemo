@@ -2,22 +2,19 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>添加物検索ブラウザアプリ</title>
-    <!-- モバイル表示に対応するためのビューポート設定 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSSファイルの読み込み -->
+    <title>添加物検索ブラウザアプリ</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- 検索ページ -->
     <div id="search-page" class="container">
         <header>
-            <h1>添加物検索</h1>
+            <h1 class="title">添加物検索</h1>
         </header>
         <main>
             <div class="logo">
-                <!-- 正しい直接リンクを使用 -->
-                <img src="https://i.imgur.com/RhD53s2.png" alt="添加物検索ロゴ">
+                <img src="https://i.imgur.com/jbioOWG.png" alt="添加物検索ロゴ" >
             </div>
             <form id="search-form">
                 <div class="form-group">
@@ -29,7 +26,54 @@
         </main>
     </div>
 
-    <!-- JavaScriptファイルの読み込み -->
+    <!-- 検索結果ページ -->
+    <div id="results-page" class="container" style="display: none;">
+        <header class="results-header">
+            <button id="back-button" class="back-button">
+                <img src="https://i.imgur.com/zTLt7BJ.png" alt="戻る">
+            </button>
+            <h1 class="results-title">検索結果</h1>
+        </header>
+        <main class="results-content">
+            <div class="result-card">
+                <h2 id="additive-title" class="additive-title">添加物名</h2>
+                <div class="additive-info">
+                    <p><strong class="merit">メリット</strong><br> <span id="additive-benefits">メリット情報</span></p>
+                    <p><strong class="demerit">デメリット</strong><br> <span id="additive-demerits">デメリット情報</span></p>
+                </div>
+            </div>
+            <div class="additional-info">
+                <div class="info-item">
+                    <img src="https://i.imgur.com/jbioOWG.png" alt="アイコン" class="info-icon">
+                    
+                    <div class="info-text-container">
+                        <p id="additive-alias" class="info-text">-</p>
+                    </div>
+                </div>
+                <!-- 以下の「別名」情報は動的に生成されるように変更可能 -->
+                <div class="info-item">
+                    <img src="https://i.imgur.com/jbioOWG.png" alt="アイコン" class="info-icon">
+                    <div class="info-text-container">
+                        <p class="info-text">-</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <img src="https://i.imgur.com/jbioOWG.png" alt="アイコン" class="info-icon">
+                    <div class="info-text-container">
+                        <p class="info-text">-</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <img src="https://i.imgur.com/jbioOWG.png" alt="アイコン" class="info-icon">
+                    <div class="info-text-container">
+                        <p class="info-text">-</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <script src="script.js" defer></script>
 </body>
 </html>
+
