@@ -1,6 +1,26 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
+  // アイコン画像のURLリスト
+  const iconUrls = [
+      'https://i.imgur.com/jbioOWG.png',
+      'https://i.imgur.com/8nLKnBU.png',
+      'https://i.imgur.com/ltHyUbG.png',
+      'https://i.imgur.com/d4ibqun.png',
+      'https://i.imgur.com/BFWeYRR.png',
+      'https://i.imgur.com/TaJI3RD.png',
+  ];
+
+  // ランダムにアイコンを選ぶ関数
+  function getRandomIconUrl() {
+      const randomIndex = Math.floor(Math.random() * iconUrls.length);
+      return iconUrls[randomIndex];
+  }
+
+  // すべてのアイコン要素にランダムなアイコンを設定
+  const icons = document.querySelectorAll('.info-icon');
+  icons.forEach(icon => {
+      icon.src = getRandomIconUrl();
+  });
+
   // 添加物データを格納する配列を初期化
   let additivesData = [];
 
@@ -26,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ホームボタンのクリック処理
-  const homeButton = document.getElementById('home-button');
+  const homeButton = document.getElementById('back-button');
   if (homeButton) {
       homeButton.addEventListener('click', function() {
           // 検索入力をクリア
@@ -59,10 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (additiveTitle && additiveAlias && additiveBenefits && additiveDemerits) {
           if (result) {
-              additiveTitle.textContent = `添加物名：${result.name}`;
-              additiveAlias.textContent = `別名：${result.alias || 'なし'}`;
-              additiveBenefits.textContent = `利点：${result.benefits || '情報なし'}`;
-              additiveDemerits.textContent = `欠点：${result.demerits || '情報なし'}`;
+              additiveTitle.textContent = `${result.name}`;
+              additiveAlias.textContent = `${result.alias || 'なし'}`;
+              additiveBenefits.textContent = `${result.benefits || '情報なし'}`;
+              additiveDemerits.textContent = `${result.demerits || '情報なし'}`;
           } else {
               additiveTitle.textContent = '該当する添加物が見つかりませんでした。';
               additiveAlias.textContent = '';
