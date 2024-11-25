@@ -24,17 +24,16 @@ body {
 }
 
 /* ヘッダーとタイトルのデザイン */
-header {
+.header {
   margin-bottom: 20px;
 }
 
-h1 {
+.title {
   font-size: 1.8em; /* 少し小さくする */
   font-weight: bold;
   margin: 20px 0;
   color: #333;
   display: inline-block; /* アンダーライン用に幅を設定するためにインラインブロックに */
-  border-bottom: 1px solid #333; /* 細いアンダーラインを追加 */
 }
 
 /* ロゴのデザイン */
@@ -44,7 +43,7 @@ h1 {
 }
 
 .logo img {
-  width: 60px;
+  width: 40px;
   height: auto;
 }
 
@@ -142,4 +141,114 @@ h1 {
     width: auto;
     padding: 15px 30px;
   }
+}
+
+/* 2ページ目の検索結果ページのスタイル */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #66b08c;
+  padding: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  height: 40px;
+}
+
+.back-button {
+  position: absolute;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.results-title {
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
+
+
+.result-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.additive-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+.additive-info {
+  text-align: left;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.merit{
+  color: #d63f03;
+}
+
+.demerit{
+  color: #002fb0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  width: 20px; /* アイコンの幅を固定 */
+  height: 20px;
+  margin-right: 20px; /* テキストとの余白を設定 */
+}
+
+.info-text-container {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: right;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+
+.info-text {
+  font-size: 1em;
+  font-weight: bold;
+  color: #555;
 }
