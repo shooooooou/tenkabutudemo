@@ -1,108 +1,254 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // アイコン画像のURLリスト
-  const iconUrls = [
-      'https://i.imgur.com/jbioOWG.png',
-      'https://i.imgur.com/8nLKnBU.png',
-      'https://i.imgur.com/ltHyUbG.png',
-      'https://i.imgur.com/d4ibqun.png',
-      'https://i.imgur.com/BFWeYRR.png',
-      'https://i.imgur.com/TaJI3RD.png',
-  ];
+/* styles.css */
 
-  // ランダムにアイコンを選ぶ関数
-  function getRandomIconUrl() {
-      const randomIndex = Math.floor(Math.random() * iconUrls.length);
-      return iconUrls[randomIndex];
+/* ベースのスタイル */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* コンテナのスタイル */
+.container {
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* ヘッダーとタイトルのデザイン */
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.8em; /* 少し小さくする */
+  font-weight: bold;
+  margin: 20px 0;
+  color: #333;
+  display: inline-block; /* アンダーライン用に幅を設定するためにインラインブロックに */
+}
+
+/* ロゴのデザイン */
+.logo {
+  margin-bottom: 20px;
+  animation: logoMove 4s infinite ease-in-out; /* アニメーションの追加 */
+}
+
+.logo img {
+  width: 40px;
+  height: auto;
+}
+
+/* ロゴアニメーションの定義 */
+@keyframes logoMove {
+  0% {
+    transform: translateX(-100%);
+    width:50%;
+    opacity: 0; /* 左端で透明度0% */
+  }
+  25% {
+    transform: translateX(0);
+    width:100%;
+    opacity: 1; /* 中央で透明度100% */
+  }
+  50% {
+    transform: translateX(100%);
+    width:50%;
+    opacity: 0; /* 右端で透明度0% */
+  }
+  75% {
+    transform: translateX(0);
+     width:100%;
+    opacity: 1; /* 中央で透明度100% */
+  }
+  100% {
+    transform: translateX(-100%);
+    width:50%;
+    opacity: 0; /* 左端に戻って透明度0% */
+  }
+}
+
+/* 検索フォームのスタイル */
+#search-form {
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1em;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus {
+  border-color: #78C4A0;
+  outline: none;
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1em;
+  background-color: #78C4A0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.search-button:hover {
+  background-color: #66b08c;
+}
+
+.search-button:active {
+  transform: scale(0.98);
+}
+
+/* レスポンシブデザイン */
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.5em;
   }
 
-  // すべてのアイコン要素にランダムなアイコンを設定
-  const icons = document.querySelectorAll('.info-icon');
-  icons.forEach(icon => {
-      icon.src = getRandomIconUrl();
-  });
-
-  // 添加物データを格納する配列を初期化
-  let additivesData = [];
-
-  // additives.jsonファイルからデータを取得（GitHub Pagesの外部URLから取得）
-  fetch('https://shooooooou.github.io/tenkabutudemo/additives.json')
-      .then(response => response.json())
-      .then(data => {
-          additivesData = data;
-      })
-      .catch(error => {
-          console.error('添加物データの取得エラー:', error);
-      });
-
-  // 検索フォームの送信処理
-  document.getElementById('search-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const additiveName = document.getElementById('additive-name').value.trim();
-      if (additiveName) {
-          displayResults(additiveName);
-      } else {
-          alert('添加物名を入力してください。');
-      }
-  });
-
-  // ホームボタンのクリック処理
-  const homeButton = document.getElementById('back-button');
-  if (homeButton) {
-      homeButton.addEventListener('click', function() {
-          // 検索入力をクリア
-          document.getElementById('additive-name').value = '';
-
-          // 結果ページを非表示にして検索ページを表示
-          document.getElementById('results-page').style.display = 'none';
-          document.getElementById('search-page').style.display = 'block';
-
-          // 検索ページをトップにスクロール
-          window.scrollTo(0, 0);
-      });
+  .search-button {
+    width: auto;
+    padding: 15px 30px;
   }
+}
 
-  // 検索結果を表示する関数
-  function displayResults(additiveName) {
-      const inputName = additiveName.toLowerCase();
+/* 2ページ目の検索結果ページのスタイル */
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #66b08c;
+  padding: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  height: 40px;
+}
 
-      // 部分一致で添加物を検索
-      const result = additivesData.find(item =>
-          item.name.toLowerCase().includes(inputName) ||
-          (item.alias && item.alias.toLowerCase().includes(inputName))
-      );
+.back-button {
+  position: absolute;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
 
-      // 結果表示用の要素を取得
-      const additiveTitle = document.getElementById('additive-title');
-      const additiveAlias = document.getElementById('additive-alias');
-      const additiveBenefits = document.getElementById('additive-benefits');
-      const additiveDemerits = document.getElementById('additive-demerits');
+.back-button img {
+  width: 30px;
+  height: 30px;
+}
 
-      if (additiveTitle && additiveAlias && additiveBenefits && additiveDemerits) {
-          if (result) {
-              additiveTitle.textContent = `${result.name}`;
-              additiveAlias.textContent = `${result.alias || 'なし'}`;
-              additiveBenefits.textContent = `${result.benefits || '情報なし'}`;
-              additiveDemerits.textContent = `${result.demerits || '情報なし'}`;
-          } else {
-              additiveTitle.textContent = '該当する添加物が見つかりませんでした。';
-              additiveAlias.textContent = '';
-              additiveBenefits.textContent = '';
-              additiveDemerits.textContent = '';
-          }
+.results-title {
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
 
-          // 検索ページを非表示にして結果ページを表示
-          const searchPage = document.getElementById('search-page');
-          const resultsPage = document.getElementById('results-page');
 
-          if (searchPage && resultsPage) {
-              searchPage.style.display = 'none';
-              resultsPage.style.display = 'block';
+.result-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 
-              // 結果ページをトップにスクロール
-              window.scrollTo(0, 0);
-          }
-      } else {
-          console.error('検索結果の表示用要素が見つかりませんでした。');
-      }
-  }
-});
+.additive-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+.additive-info {
+  text-align: left;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.merit{
+  color: #d63f03;
+}
+
+.demerit{
+  color: #002fb0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  width: 20px; /* アイコンの幅を固定 */
+  height: 20px;
+  margin-right: 20px; /* テキストとの余白を設定 */
+}
+
+.info-text-container {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: right;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+
+.info-text {
+  font-size: 1em;
+  font-weight: bold;
+  color: #555;
+}
