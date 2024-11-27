@@ -73,7 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
           return item.name.toLowerCase().includes(inputName) ||
                  (item.alias1 && item.alias1.toLowerCase().includes(inputName)) ||
                  (item.alias2 && item.alias2.toLowerCase().includes(inputName)) ||
-                 (item.alias3 && item.alias3.toLowerCase().includes(inputName));
+                 (item.alias3 && item.alias3.toLowerCase().includes(inputName)) ||
+                 (item.alias4 && item.alias4.toLowerCase().includes(inputName)) ||
+                 (item.alias5 && item.alias5.toLowerCase().includes(inputName)) ||
+                 (item.alias6 && item.alias6.toLowerCase().includes(inputName)) ||
+                 (item.alias7 && item.alias7.toLowerCase().includes(inputName)) ||
+                 (item.alias8 && item.alias8.toLowerCase().includes(inputName)) ||
+                 (item.alias9 && item.alias9.toLowerCase().includes(inputName)) ||
+                 (item.alias10 && item.alias10.toLowerCase().includes(inputName));
       });
 
       // 結果を確認するためのログ
@@ -81,13 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // 結果表示用の要素を取得
       const additiveTitle = document.getElementById('additive-title');
-      const additiveAlias1 = document.getElementById('additive-alias1');
-      const additiveAlias2 = document.getElementById('additive-alias2');
-      const additiveAlias3 = document.getElementById('additive-alias3');
       const additiveBenefits = document.getElementById('additive-benefits');
       const additiveDemerits = document.getElementById('additive-demerits');
+      const additiveAliasElements = [];
+      for (let i = 1; i <= 10; i++) {
+          additiveAliasElements.push(document.getElementById(`additive-alias${i}`));
+      }
 
-      if (additiveTitle && additiveAlias1 && additiveAlias2 && additiveAlias3 && additiveBenefits && additiveDemerits) {
+      if (additiveTitle && additiveBenefits && additiveDemerits && additiveAliasElements.every(el => el !== null)) {
           if (result) {
               additiveTitle.textContent = result.name || '情報なし';
 
@@ -116,20 +124,15 @@ document.addEventListener('DOMContentLoaded', function() {
               }
 
               // alias の表示
-              console.log("alias1:", result.alias1);
-              console.log("alias2:", result.alias2);
-              console.log("alias3:", result.alias3);
-
-              additiveAlias1.textContent = result.alias1 || 'なし';
-              additiveAlias2.textContent = result.alias2 || 'なし';
-              additiveAlias3.textContent = result.alias3 || 'なし';
+              for (let i = 1; i <= 10; i++) {
+                  const aliasKey = `alias${i}`;
+                  additiveAliasElements[i - 1].textContent = result[aliasKey] || 'なし';
+              }
           } else {
               additiveTitle.textContent = '該当する添加物が見つかりませんでした。';
               additiveBenefits.textContent = '';
               additiveDemerits.textContent = '';
-              additiveAlias1.textContent = 'なし';
-              additiveAlias2.textContent = 'なし';
-              additiveAlias3.textContent = 'なし';
+              additiveAliasElements.forEach(el => el.textContent = 'なし');
           }
 
           // 検索ページを非表示にして結果ページを表示
@@ -148,4 +151,3 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
 });
-
