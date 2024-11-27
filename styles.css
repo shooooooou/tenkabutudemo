@@ -151,6 +151,7 @@ body {
 
 .results-header {
   position: sticky;
+  width: auto;
   top: 0;
   z-index: 10;
   display: flex;
