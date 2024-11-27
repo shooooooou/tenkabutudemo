@@ -29,21 +29,24 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => response.json())
       .then(data => {
           additivesData = data;
+
+          // データ取得後に検索フォームのイベントリスナーを設定
+          const searchForm = document.getElementById('search-form');
+          if (searchForm) {
+              searchForm.addEventListener('submit', function(event) {
+                  event.preventDefault();
+                  const additiveName = document.getElementById('additive-name').value.trim();
+                  if (additiveName) {
+                      displayResults(additiveName);
+                  } else {
+                      alert('添加物名を入力してください。');
+                  }
+              });
+          }
       })
       .catch(error => {
           console.error('添加物データの取得エラー:', error);
       });
-
-  // 検索フォームの送信処理
-  document.getElementById('search-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const additiveName = document.getElementById('additive-name').value.trim();
-      if (additiveName) {
-          displayResults(additiveName);
-      } else {
-          alert('添加物名を入力してください。');
-      }
-  });
 
   // ホームボタンのクリック処理
   const homeButton = document.getElementById('back-button');
@@ -63,31 +66,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 検索結果を表示する関数
   function displayResults(additiveName) {
-      const inputName = additiveName.toLowerCase();
+      const inputName = additiveName.toLowerCase().trim();
 
       // 部分一致で添加物を検索
-      const result = additivesData.find(item =>
-          item.name.toLowerCase().includes(inputName) ||
-          (item.alias && item.alias.toLowerCase().includes(inputName))
-      );
+      const result = additivesData.find(item => {
+          return item.name.toLowerCase().includes(inputName) ||
+                 (item.alias1 && item.alias1.toLowerCase().includes(inputName)) ||
+                 (item.alias2 && item.alias2.toLowerCase().includes(inputName)) ||
+                 (item.alias3 && item.alias3.toLowerCase().includes(inputName));
+      });
+
+      // 結果を確認するためのログ
+      console.log("検索結果:", result);
 
       // 結果表示用の要素を取得
       const additiveTitle = document.getElementById('additive-title');
-      const additiveAlias = document.getElementById('additive-alias');
+      const additiveAlias1 = document.getElementById('additive-alias1');
+      const additiveAlias2 = document.getElementById('additive-alias2');
+      const additiveAlias3 = document.getElementById('additive-alias3');
       const additiveBenefits = document.getElementById('additive-benefits');
       const additiveDemerits = document.getElementById('additive-demerits');
 
-      if (additiveTitle && additiveAlias && additiveBenefits && additiveDemerits) {
+      if (additiveTitle && additiveAlias1 && additiveAlias2 && additiveAlias3 && additiveBenefits && additiveDemerits) {
           if (result) {
-              additiveTitle.textContent = `${result.name}`;
-              additiveAlias.textContent = `${result.alias || 'なし'}`;
-              additiveBenefits.textContent = `${result.benefits || '情報なし'}`;
-              additiveDemerits.textContent = `${result.demerits || '情報なし'}`;
+              additiveTitle.textContent = result.name || '情報なし';
+
+              // メリットの表示（リスト形式）
+              if (Array.isArray(result.benefits)) {
+                  additiveBenefits.innerHTML = '';
+                  result.benefits.forEach(benefit => {
+                      const benefitItem = document.createElement('li');
+                      benefitItem.textContent = `${benefit}`;
+                      additiveBenefits.appendChild(benefitItem);
+                  });
+              } else {
+                  additiveBenefits.textContent = result.benefits || '情報なし';
+              }
+
+              // デメリットの表示（リスト形式）
+              if (Array.isArray(result.demerits)) {
+                  additiveDemerits.innerHTML = '';
+                  result.demerits.forEach(demerit => {
+                      const demeritItem = document.createElement('li');
+                      demeritItem.textContent = `${demerit}`;
+                      additiveDemerits.appendChild(demeritItem);
+                  });
+              } else {
+                  additiveDemerits.textContent = result.demerits || '情報なし';
+              }
+
+              // alias の表示
+              console.log("alias1:", result.alias1);
+              console.log("alias2:", result.alias2);
+              console.log("alias3:", result.alias3);
+
+              additiveAlias1.textContent = result.alias1 || 'なし';
+              additiveAlias2.textContent = result.alias2 || 'なし';
+              additiveAlias3.textContent = result.alias3 || 'なし';
           } else {
               additiveTitle.textContent = '該当する添加物が見つかりませんでした。';
-              additiveAlias.textContent = '';
               additiveBenefits.textContent = '';
               additiveDemerits.textContent = '';
+              additiveAlias1.textContent = 'なし';
+              additiveAlias2.textContent = 'なし';
+              additiveAlias3.textContent = 'なし';
           }
 
           // 検索ページを非表示にして結果ページを表示
