@@ -144,14 +144,21 @@ body {
 }
 
 /* 2ページ目の検索結果ページのスタイル */
+#results-page {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
 .results-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #66b08c;
   padding: 10px;
   margin-bottom: 20px;
-  position: relative;
   height: 40px;
 }
 
