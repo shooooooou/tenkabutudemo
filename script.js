@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const randomIndex = Math.floor(Math.random() * iconUrls.length);
         return iconUrls[randomIndex];
     }
+
+    const firsts = document.querySelectorAll('.icon-first');
+    firsts.forEach(first => {
+        first.src = getRandomIconUrl();
+    });
   
     // すべてのアイコン要素にランダムなアイコンを設定
     const icons = document.querySelectorAll('.info-icon');
