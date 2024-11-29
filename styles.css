@@ -227,6 +227,10 @@ body {
   color: #002fb0;
 }
 
+.reference{
+  color: #555;
+}
+
 .info-item {
   display: flex;
   align-items: center;
