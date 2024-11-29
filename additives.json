@@ -21,6 +21,11 @@
             "アレルギー反応を引き起こす可能性がある",
             "発がん性が示唆されているものもある"
         ]
+        "references" [
+            "日本食品添加物協会(食品添加物の種類と用途例)",
+            "食品添加物用語の基礎知識　 第三版",
+            "https://www.anti-a.org/news/jp/food-additives-and-allergy-symptoms"
+        ]
     },
     {
     "name": "着色料・合成着色料",
