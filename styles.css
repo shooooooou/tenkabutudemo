@@ -79,6 +79,19 @@ body {
 /* 検索フォームのスタイル */
 #search-form {
   width: 100%;
+  margin-bottom: 60px;
+}
+
+.all-merit{
+  font-size: small;
+  color: #5b5b5b;
+  text-decoration:underline;
+}
+
+.explanation{
+  font-size: small;
+  color: #5b5b5b;
+  text-align: left;
 }
 
 .form-group {
